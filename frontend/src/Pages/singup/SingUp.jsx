@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const SingUp = () => {
     const click=async(event)=>{
@@ -66,7 +67,7 @@ const SingUp = () => {
                     />
                     
                 </div>
-                <a className='text-sm hover:underline hover:text-blue-600 mt-2 inline-block ' href='#'> Already have a account?</a>
+                <Link className='text-sm hover:underline hover:text-blue-600 mt-2 inline-block ' to="/"> Already have a account?</Link>
                 
                 <div>
                     <button className='btn btn-block btn-sm mt-2 border-slate-700' onClick={click}>Sign up</button>
