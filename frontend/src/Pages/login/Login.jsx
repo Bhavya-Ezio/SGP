@@ -1,7 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
+
     const loginClick=async(event)=>{
         event.preventDefault();
         let number=document.getElementById('number').value;
@@ -25,6 +27,10 @@ const Login = () => {
         
             const resData = await response.json();
             console.log(resData);
+            if(resData==="User found")
+            {
+                navigate("/homepage")
+            }
         } catch (error) {
             console.log(error);
         }

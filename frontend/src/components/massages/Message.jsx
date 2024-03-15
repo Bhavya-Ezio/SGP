@@ -8,7 +8,7 @@ const Message=()=>{
     </div>
   </div>
   <div className="chat-header">
-    Obi-Wan Kenobi
+    Utsav Bhalani
     <time className="text-xs opacity-50">12:45</time>
   </div>
   <div className="chat-bubble">You were the Chosen One!</div>
@@ -23,7 +23,7 @@ const Message=()=>{
     </div>
   </div>
   <div className="chat-header">
-    Anakin
+    Bhavya Bilimoria
     <time className="text-xs opacity-50">12:46</time>
   </div>
   <div className="chat-bubble">I hate you!</div>
