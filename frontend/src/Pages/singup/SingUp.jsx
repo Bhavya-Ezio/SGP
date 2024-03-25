@@ -12,7 +12,7 @@ const SingUp = () => {
             password : password,
             number : number
         }
-        console.log(obj);
+        // console.log(obj);
         try {
             const response = await fetch('http://localhost:3000/add-data', {
                 body: JSON.stringify(obj),
