@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 
 const {addData} = require('./addData.js');
 const {checkData} = require('./checkData.js');
-const {get_data} = require('./getMessage.js')
+const {get_data} = require('./getMessage.js');
+const {get_contactList} = require('./getContactList.js')
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -42,10 +43,10 @@ app.post('/check-data', async (req, res) => {
 app.post('/get-chat', async (req,res) =>{
   try{
     const x = req.body;
-    let senderid=x.senderid;
-    let receiverid=x.receiverid;
-    // console.log(senderid,receiverid);
-    msg=await get_data(senderid,receiverid);
+    let sender_no=x.sender_no;
+    let receiver_no=x.receiver_no;
+    // console.log(sender_no,receiver_no);
+    msg=await get_data(sender_no,receiver_no);
     // console.log(msg)
     res.json(msg);
   }
@@ -54,4 +55,19 @@ app.post('/get-chat', async (req,res) =>{
     res.status(500).json({ message: 'Error checking data' });
   }
 });
+
+app.post('/get-contact-list',async(req,res)=>{
+  try{
+    const x = req.body;
+    let user_no=x.user_no;
+    // console.log(user_no);
+    clist=await get_contactList(user_no);
+    console.log(clist.rows)
+    // res.json(clist.rows);
+  }
+  catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Error checking data' });
+  }
+})
 app.listen(3000, () => console.log('Node.js server listening on port 3000'));

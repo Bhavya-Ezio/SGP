@@ -6,8 +6,8 @@ const MessageInput = () => {
         // console.log("hello");
         event.preventDefault();
             let obj={
-                senderid : "7984986729",
-                receiverid : "9574827992"
+                sender_no : "7984986729",
+                receiver_no : "9574827992"
             }
             try {
                 const response=await fetch("http://localhost:3000/get-chat",{

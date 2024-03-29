@@ -1,10 +1,9 @@
 const { pool } = require('./dbConnection');
-async function get_data(s_no, r_no) {
+async function get_contactList(user_no) {
     const client = await pool.connect();
-
     try {
-        const query = `SELECT * FROM messages WHERE (sender_no=$1 and receiver_no=$2) or (sender_no=$2 and receiver_no=$1) ;`;
-        const values = [s_no, r_no];
+        const query = `SELECT associated_no, username FROM contact_list join login_info on associated_no=mob_number where mob_no=$1;`;
+        const values = [user_no];
         const result = await client.query(query, values);
         return result;
     } catch (error) {
@@ -14,4 +13,4 @@ async function get_data(s_no, r_no) {
     }
 }
 
-module.exports = {get_data}
+module.exports = {get_contactList}
