@@ -22,10 +22,9 @@ const Home = () => {
 			if (!response.ok) {
 			  throw new Error('Failed to fetch contact list');
 			}
-	
-			// Parse the response JSON
+
 			const data = await response.json();
-			console.log(data);
+			// console.log(data);
 		  } catch (error) {
 			console.error('Error fetching contact list:', error);
 			// Handle error (e.g., display an error message)
