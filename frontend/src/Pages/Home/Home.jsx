@@ -1,10 +1,11 @@
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import MessageContainer from "../../components/massages/MessageContainer";
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 
 
 const Home = () => {
+	const [contactList, setContactList] = useState([]);
 	useEffect(() => {
 		const fetchContactList = async () => {
 		  try {
@@ -25,6 +26,7 @@ const Home = () => {
 
 			const data = await response.json();
 			// console.log(data);
+			setContactList(data);
 		  } catch (error) {
 			console.error('Error fetching contact list:', error);
 			// Handle error (e.g., display an error message)
@@ -35,7 +37,7 @@ const Home = () => {
 	  }, []);
 	return (
 		<div className='flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
-			<Sidebar />
+			<Sidebar contactList={contactList}/>
 			<MessageContainer/>
 		</div>
 	);
