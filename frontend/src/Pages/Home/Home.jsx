@@ -1,10 +1,11 @@
-
+//home.jsx
 import Sidebar from "../../components/Sidebar/Sidebar";
 import MessageContainer from "../../components/massages/MessageContainer";
 import React, { useEffect,useState } from 'react';
+import { MessagesProvider } from "./MessageContext";
 
 
-const Home = () => {
+const Home = (messages) => {
 	const [contactList, setContactList] = useState([]);
 	useEffect(() => {
 		const fetchContactList = async () => {
@@ -37,8 +38,10 @@ const Home = () => {
 	  }, []);
 	return (
 		<div className='flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
-			<Sidebar contactList={contactList}/>
-			<MessageContainer/>
+			<MessagesProvider>
+				<Sidebar contactList={contactList}/>
+				<MessageContainer/>
+			</MessagesProvider>
 		</div>
 	);
 };
