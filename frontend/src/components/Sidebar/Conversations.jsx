@@ -1,8 +1,8 @@
 import Conversation from "./Conversation";
-import Sidebar from "./Sidebar";
+// import Sidebar from "./Sidebar";
 
 const Coversations = ({contactList})=>{
-    
+    // console.log("c list",contactList);
 	return (
         <div className='py-2 flex flex-col overflow-auto'>
             {contactList.map((contact, idx) => (
@@ -13,7 +13,6 @@ const Coversations = ({contactList})=>{
                     lastIdx={idx === contact.length - 1}
                 />
             ))}
-            {/* <Sidebar messages={messages} /> */}
         </div>
     );
 }

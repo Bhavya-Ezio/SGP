@@ -2,16 +2,16 @@
 import Sidebar from "../../components/Sidebar/Sidebar";
 import MessageContainer from "../../components/massages/MessageContainer";
 import React, { useEffect,useState } from 'react';
-import { MessagesProvider } from "./MessageContext";
+import { MessagesProvider } from "../../hooks/MessageContext";
 
 
-const Home = (messages) => {
+const Home = () => {
 	const [contactList, setContactList] = useState([]);
 	useEffect(() => {
 		const fetchContactList = async () => {
 		  try {
 			let obj={
-				user_no : 1234567890
+				user_no : '9574827992'
 			}
 			const response = await fetch('http://localhost:3000/get-contact-list', {
 				method: "POST",

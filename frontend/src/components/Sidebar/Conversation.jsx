@@ -1,14 +1,15 @@
 //conversation.jsx
 import { useContext } from "react";
-import { MessagesContext } from "../../Pages/Home/MessageContext";
+import { MessagesContext } from "../../hooks/MessageContext";
 const Conversation = (conversation) => {
+	// console.log("convo ",conversation);
 	const { setSelectedConversation } = useContext(MessagesContext);
 	const getMessage = async ()=>{
-		let message={}
+		// console.log(conversation.conversation.associated_no)
 		try {
 			let obj={
-				sender_no : 7984986729,
-				receiver_no :9574827992
+				sender_no : 9574827992,
+				receiver_no : conversation.conversation.associated_no 
 			}
 			const response = await fetch('http://localhost:3000/get-chat', {
 				method: "POST",
@@ -23,7 +24,7 @@ const Conversation = (conversation) => {
 			}
 
 			const data = await response.json();
-			// console.log(data);
+			// console.log("data ",data);
 			setSelectedConversation(data)
 		  } catch (error) {
 			console.error('Error fetching contact list:', error);

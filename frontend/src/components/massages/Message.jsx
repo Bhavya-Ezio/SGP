@@ -3,7 +3,7 @@ import React from "react";
 const Message = ({ messages }) => {
   return (
     <>
-      {messages.map((message, index) => (
+        {messages.map((message, index) => (
         <div key={index} className={`chat ${true ? "chat-end" : "chat-start"}`}>
           <div className="chat-image avatar">
           <div className="w-10 rounded-full">
@@ -11,10 +11,10 @@ const Message = ({ messages }) => {
           </div>
           </div>
           <div className="chat-header">
-            {message.sender_no}  {/* Assuming sender_no represents the sender's name */}
+            {message.sender_no} 
           </div>
           <div className="chat-bubble">
-            {message.content}
+            {message.message}
           </div>
         </div>
       ))}
