@@ -3,11 +3,12 @@ async function checkData(password, number) {
     const client = await pool.connect();
 
     try {
-        const query = `SELECT * FROM login_info WHERE mob_number=$1 AND password=$2;`;
+        const query = `SELECT username,mob_number FROM login_info WHERE mob_number=$1 AND password=$2;`;
         const values = [number, password,];
         const result = await client.query(query, values);
         if (result.rowCount === 1) {
-            return "User found";
+            // console.log(result.rows[0]);
+            return result.rows[0];
         } else {
             return "User not found";
         }

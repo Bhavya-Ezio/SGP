@@ -3,7 +3,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import MessageContainer from "../../components/massages/MessageContainer";
 import React, { useEffect,useState } from 'react';
 import { MessagesProvider } from "../../hooks/MessageContext";
-
+import {CurrentUserProvider} from "../../hooks/userContext";
 
 const Home = () => {
 	const [contactList, setContactList] = useState([]);
@@ -37,11 +37,13 @@ const Home = () => {
 		fetchContactList(); // Call the fetchContactList function
 	  }, []);
 	return (
-		<div className='flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
-			<MessagesProvider>
-				<Sidebar contactList={contactList}/>
-				<MessageContainer/>
-			</MessagesProvider>
+		<div className='h-window flex backdrop-blur-lg '>
+				<CurrentUserProvider>
+				<MessagesProvider>
+					<Sidebar contactList={contactList} />
+					<MessageContainer/>
+				</MessagesProvider>
+				</CurrentUserProvider>
 		</div>
 	);
 };

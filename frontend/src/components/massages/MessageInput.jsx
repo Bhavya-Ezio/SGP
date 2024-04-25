@@ -1,15 +1,16 @@
-import useCurrentConversation from "../../hooks/useCurrentConversation";
+import { useContext } from "react";
+import { MessagesContext } from "../../hooks/MessageContext";
 
 
 const MessageInput = () => {
-    const { currentConversation } = useCurrentConversation();
+    const { currentConversation } = useContext(MessagesContext)
     const clicked = async (event)=>{
         // console.log("hello");
         event.preventDefault();
         let contents = document.getElementById("content").value
             let obj={
                 sender_no : "7984986729",
-                receiver_no : "9574827992",
+                receiver_no : currentConversation.associated_no,
                 content : contents
             }
             console.log(obj);
@@ -38,7 +39,7 @@ const MessageInput = () => {
             <input 
             type="text" 
             id="content" 
-            placeholder={`Send message to ${currentConversation ? currentConversation : ""}`} 
+            placeholder={`Send message to ${currentConversation.username ? currentConversation.username : ""}`} 
             className=" input input-bordered rounded-full"/>
 
             <button onClick={clicked} type="submit"className="btn btn-circle bg-sky-500 text-white">

@@ -1,8 +1,10 @@
-import React from 'react'
+import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from '../.././hooks/userContext';
 
 const Login = () => {
     const navigate = useNavigate();
+    const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
     const loginClick=async(event)=>{
         event.preventDefault();
@@ -24,11 +26,14 @@ const Login = () => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-        
             const resData = await response.json();
-            console.log(resData);
-            if(resData==="User found")
+            if(resData==="User not found")
             {
+                throw(Error("User not found"));
+            }
+            else{
+
+                setCurrentUser(resData);
                 navigate("/homepage")
             }
         } catch (error) {

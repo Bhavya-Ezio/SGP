@@ -10,8 +10,8 @@ const Message = ({ messages }) => {
                <img src="https://th.bing.com/th/id/OIP.s9JFNLzEbjoZhjijeA5X-AHaHa?rs=1&pid=ImgDetMain"/>
           </div>
           </div>
-          <div className="chat-header">
-            {message.sender_no} 
+          <div className="chat-header color-black">
+            {message.sender_name} 
           </div>
           <div className="chat-bubble">
             {message.message}

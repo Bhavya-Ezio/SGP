@@ -4,12 +4,15 @@ import { MessagesContext } from "../../hooks/MessageContext";
 const Conversation = (conversation) => {
 	// console.log("convo ",conversation);
 	const { setSelectedConversation } = useContext(MessagesContext);
+	const { setCurrentConversation,currentConversation } = useContext(MessagesContext);
 	const getMessage = async ()=>{
-		// console.log(conversation.conversation.associated_no)
+		setCurrentConversation(conversation.conversation)
+		// console.log(currentConversation)
+
 		try {
 			let obj={
 				sender_no : 9574827992,
-				receiver_no : conversation.conversation.associated_no 
+				receiver_no : currentConversation.associated_no 
 			}
 			const response = await fetch('http://localhost:3000/get-chat', {
 				method: "POST",
