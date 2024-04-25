@@ -6,8 +6,9 @@ const bodyParser = require('body-parser');
 const {addData} = require('./addData.js');
 const {checkData} = require('./checkData.js');
 const {get_data} = require('./getMessage.js');
-const {get_contactList} = require('./getContactList.js')
-const {addMessage} = require('./addMessage.js')
+const {get_contactList} = require('./getContactList.js');
+const {addMessage} = require('./addMessage.js');
+const {addContact} = require('./addContact.js');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -19,7 +20,8 @@ app.post('/add-data', async (req, res) => {
     let username = x.username;
     let number = x.number;
     let password = x.password;
-    const response= await addData(username, password, number)
+    let language = x.language;
+    const response= await addData(username, password, number,language)
     // console.log(`username: ${username}\nnumber: ${number}\npassword: ${password}`);
     res.json({ message: response.message });
   } catch (error) {
@@ -84,6 +86,20 @@ app.post("/add-message", async (req,res)=>{
       res.json({status : 1})
     else 
       res.json({status : 0})
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+app.post("/add-contact",async(req,res)=>{
+  try {
+    const x=req.body
+    // console.log("addcontact",x);
+    const mob_no = x.user_number;
+    const add_no = x.add_number;
+    let response = await addContact(mob_no,add_no);
+    // console.log(response);
+    res.json({message : response})
   } catch (error) {
     console.log(error);
   }

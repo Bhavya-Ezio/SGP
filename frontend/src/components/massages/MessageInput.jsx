@@ -15,7 +15,7 @@ const MessageInput = () => {
             receiver_no: currentConversation.associated_no,
             content: contents
         }
-        console.log(obj);
+        // console.log(obj);
         try {
             const response = await fetch("http://localhost:3000/add-message", {
                 method: "POST",
@@ -29,14 +29,14 @@ const MessageInput = () => {
                 throw new Error('Network response was not ok');
             }
             const resData = await response.json();
-            console.log("res data", resData);
+            // console.log("res data", resData);
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
     return (
-        <form className="px-4 my-3">
-            <div className="w-full relative">
+        <div className="w-full">
+            <form className="px-4 my-3">
 
                 <input
                     type="text"
@@ -47,8 +47,8 @@ const MessageInput = () => {
                 <button onClick={clicked} type="submit" className="btn btn-circle bg-sky-500 text-white">
                     Send
                 </button>
-            </div>
-        </form>
+            </form>
+        </div>
     );
 };
 export default MessageInput;

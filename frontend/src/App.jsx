@@ -11,13 +11,12 @@ function App() {
   return (
     <div className='p-4 h-screen flex items-center justify-center' >
       <Router>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/signup" element={<SingUp />} />
-            <Route path="/homepage" element={<Home className="h-full"/>} />
-          </Routes>
-  </Router>
-    
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<SingUp />} />
+          <Route path="/homepage" element={<Home className="h-full" />} />
+        </Routes>
+      </Router>
     </div>
   )
 }
