@@ -4,7 +4,7 @@ const MessagesContext = createContext({
   messages: [],
   setSelectedConversation: () => {},
   currentConversation: null,
-  setCurrentConversation: (username) => {},
+  setCurrentConversation: () => {},
 });
 
 const MessagesProvider = ({ children }) => {

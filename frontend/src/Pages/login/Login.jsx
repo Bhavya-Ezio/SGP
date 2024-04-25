@@ -1,10 +1,8 @@
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CurrentUserContext } from '../.././hooks/userContext';
 
 const Login = () => {
     const navigate = useNavigate();
-    const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
     const loginClick=async(event)=>{
         event.preventDefault();
@@ -32,9 +30,9 @@ const Login = () => {
                 throw(Error("User not found"));
             }
             else{
-
-                setCurrentUser(resData);
-                navigate("/homepage")
+                // console.log(resData);
+                localStorage.setItem('currentUser', JSON.stringify(resData));
+                navigate('/homepage')
             }
         } catch (error) {
             console.log(error);
