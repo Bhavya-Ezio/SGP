@@ -80,6 +80,7 @@ app.post("/add-message", async (req,res)=>{
     const content= x.content;
     const sender_no=x.sender_no;
     const receiver_no=x.receiver_no;
+    const t_message=x.translated_content;
     let response = await addMessage(content,sender_no,receiver_no)
     // console.log(response.rowCount);
     if(response.rowCount==1)

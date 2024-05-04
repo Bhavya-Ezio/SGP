@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SingUp = () => {
     const navigate = useNavigate();
@@ -9,37 +9,48 @@ const SingUp = () => {
         const password = document.getElementById('password').value;
         const number = document.getElementById('number').value;
         const languageSelect = document.getElementById("language").value;
-        const obj = {
-            username: username,
-            password: password,
-            number: number,
-            language: languageSelect
+        if (username === '' || password === '' || number === '' || languageSelect === '') {
+            alert("Please enter all values")
         }
-        // console.log(obj);
-        try {
-            const response = await fetch('http://localhost:3000/add-data', {
-                body: JSON.stringify(obj),
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+        else {
+            if (number.length != 10) {
+                alert("Enter the number of 10 digit only")
             }
-
-            const resData = await response.json();
-            // console.log(typeof(resData),resData);
-            if(resData.message==='Data added successfully!')
-            {
-                navigate('/')
+            else if (password.length < 8) {
+                alert("Enter a password of more than 8 characters")
             }
-            
-        } catch (error) {
-            console.error('Error during fetch:', error.message);
+            else {
+                const obj = {
+                    username: username,
+                    password: password,
+                    number: number,
+                    language: languageSelect
+                }
+                // console.log(obj);
+                try {
+                    const response = await fetch('http://localhost:3000/add-data', {
+                        body: JSON.stringify(obj),
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const resData = await response.json();
+                    // console.log(typeof(resData),resData);
+                    if (resData.message === 'Data added successfully!') {
+                        navigate('/')
+                    }
+
+                } catch (error) {
+                    console.error('Error during fetch:', error.message);
+                }
+            }
         }
-
     }
     return (
         <div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
@@ -69,9 +80,9 @@ const SingUp = () => {
                         </label>
                         <select name="language" id="language" className="input input-bordered h-10 w-full">
                             <option value="">Select Language</option>
-                            <option value="English">English</option>
-                            <option value="Spanish">Spanish</option>
-                            <option value="French">French</option>
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
                         </select>
                     </div>
 

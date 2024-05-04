@@ -6,32 +6,50 @@ const MessageInput = () => {
     const { currentConversation } = useContext(MessagesContext)
     const storedUserData = localStorage.getItem('currentUser');
     const currentUser = storedUserData ? JSON.parse(storedUserData) : null;
+    const apiKey = "c3ccb5de5246b545ad54";
+    async function getTranslation(text, sourceLang, targetLang) {
+        const url = `https://mymemory.translated.net/api/get?q=${text}&langpair=${sourceLang}|${targetLang}&mt=1&from=react-app&lang=${sourceLang}&uid=${apiKey}`;
+        const t_msg = await fetch(url);
+        return t_msg;
+    }
     const clicked = async (event) => {
-        // console.log("hello");
+        console.log(currentConversation);
         event.preventDefault();
         let contents = document.getElementById("content").value
-        let obj = {
-            sender_no: currentUser.mob_number,
-            receiver_no: currentConversation.associated_no,
-            content: contents
+        if (contents === '') {
+            alert("The message is empty.")
         }
-        // console.log(obj);
-        try {
-            const response = await fetch("http://localhost:3000/add-message", {
-                method: "POST",
-                body: JSON.stringify(obj),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+        else {
+            let translated_content;
+            if (currentUser.language === currentConversation.language) {
+                translated_content = contents;
             }
-            const resData = await response.json();
-            // console.log("res data", resData);
-        } catch (error) {
-            // console.log(error);
+            else {
+                translated_content = await getTranslation(contents, currentUser.language, currentConversation.language);
+            }
+            let obj = {
+                sender_no: currentUser.mob_number,
+                receiver_no: currentConversation.associated_no,
+                content: contents,
+                translated_content: translated_content
+            }
+            // console.log(obj);
+            try {
+                const response = await fetch("http://localhost:3000/add-message", {
+                    method: "POST",
+                    body: JSON.stringify(obj),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const resData = await response.json();
+                // console.log("res data", resData);
+            } catch (error) {
+                // console.log(error);
+            }
         }
     }
     return (

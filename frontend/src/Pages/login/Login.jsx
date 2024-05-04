@@ -8,34 +8,39 @@ const Login = () => {
         event.preventDefault();
         let number=document.getElementById('number').value;
         let password=document.getElementById('password').value;
-        let obj={
-            number : number,
-            password : password
+        if(number === '' || password === ''){
+            alert("The fields cannot be empty")
         }
-        try {
-            const response=await fetch("http://localhost:3000/check-data",{
-                method: "POST",
-                body : JSON.stringify(obj),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
+        else{
+            let obj={
+                number : number,
+                password : password
+            }
+            try {
+                const response=await fetch("http://localhost:3000/check-data",{
+                    method: "POST",
+                    body : JSON.stringify(obj),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const resData = await response.json();
+                if(resData==="User not found")
+                {
+                    throw(Error("User not found"));
+                }
+                else{
+                    // console.log(resData);
+                    localStorage.setItem('currentUser', JSON.stringify(resData));
+                    navigate('/homepage')
+                }
+            } catch (error) {
+                console.log(error);
             }
-            const resData = await response.json();
-            if(resData==="User not found")
-            {
-                throw(Error("User not found"));
-            }
-            else{
-                // console.log(resData);
-                localStorage.setItem('currentUser', JSON.stringify(resData));
-                navigate('/homepage')
-            }
-        } catch (error) {
-            console.log(error);
         }
     }
   return (

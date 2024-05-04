@@ -14,16 +14,16 @@ const MessageContainer = () => {
         <span className="label-text-black">To:</span>
         <span className="text-gray-900 font-bold">{currentConversation ? currentConversation.username : ""}</span>
       </div>
-      {messages && messages.length > 0 ? ( // Check if messages exist and have elements
+      {currentConversation !=null ? ( // Check if messages exist and have elements
         <div className="text-center p-4">
           <Messages messages={messages} />  {/* Render Messages */}
+          <div className="absolute bottom-0 w-100%">
+            <MessageInput />
+          </div>
         </div>
       ) : (
         <div className="text-center p-4">Select a conversation to view messages.</div>
       )}
-      <div className="absolute bottom-0 w-100%">
-        <MessageInput />
-      </div>
     </div>
   );
 };
