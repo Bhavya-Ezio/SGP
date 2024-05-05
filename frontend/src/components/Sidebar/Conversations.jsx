@@ -1,5 +1,4 @@
 import Conversation from "./Conversation";
-// import Sidebar from "./Sidebar";
 
 const Coversations = ({contactList})=>{
     // console.log("c list",contactList);
