@@ -1,11 +1,11 @@
 const { pool } = require('./dbConnection');
 
-async function addMessage(content,s_no, r_no) {
+async function addMessage(content, s_no, r_no, t_message) {
     const client = await pool.connect();
 
     try {
-        const query = `INSERT INTO MESSAGES VALUES ($1 , $2 , $3);`; 
-        const values = [s_no, r_no,content];
+        const query = `INSERT INTO MESSAGES VALUES ($1 , $2 , $3 , $4);`;
+        const values = [s_no, r_no, content, t_message];
         const result = await client.query(query, values);
         return result;
     } catch (error) {
@@ -15,4 +15,4 @@ async function addMessage(content,s_no, r_no) {
     }
 }
 
-module.exports = {addMessage}
+module.exports = { addMessage }

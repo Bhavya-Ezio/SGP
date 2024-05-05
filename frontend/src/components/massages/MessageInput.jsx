@@ -13,7 +13,7 @@ const MessageInput = () => {
         return t_msg;
     }
     const clicked = async (event) => {
-        console.log(currentConversation);
+        // console.log(currentConversation);
         event.preventDefault();
         let contents = document.getElementById("content").value
         if (contents === '') {
