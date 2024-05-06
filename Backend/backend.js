@@ -12,6 +12,7 @@ const { get_data } = require('./getMessage.js');
 const { get_contactList } = require('./getContactList.js');
 const { addMessage } = require('./addMessage.js');
 const { addContact } = require('./addContact.js');
+const { log } = require('console');
 
 const server = http.createServer(app);
 const io = socketIO(server);
@@ -119,12 +120,28 @@ app.post("/add-contact", async (req, res) => {
   }
 })
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../frontend/dist/', 'index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/', 'index.html'));
+});
 
 //socket IO
+const connectedUsers = {};
+
 io.on('connection', (socket) => {
-  console.log('A new user just connected');
+  // console.log('A new user just connected');
+
+  socket.on('register', (userID) => {
+    connectedUsers[userID] = socket.id;
+    // console.log(`${userID} registered`);
+  });
+
+  socket.on('user-logout',(userID)=>{
+    // console.log(`${userID} logged out`);
+    delete connectedUsers[userID];
+  })
+
+  socket.on('disconnect', () =>{
+    console.log('User disconnected from server')
+  })
 });
 server.listen(3000, () => console.log('Node.js server listening on port 3000'));

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import {socket} from "../../socketIO/socket"
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -35,6 +35,7 @@ const Login = () => {
                 }
                 else{
                     // console.log(resData);
+                    socket.emit('register', resData.id);
                     localStorage.setItem('currentUser', JSON.stringify(resData));
                     navigate('/homepage')
                 }
