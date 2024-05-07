@@ -17,11 +17,7 @@ const { log } = require('console');
 const server = http.createServer(app);
 const io = socketIO(server);
 
-app.use(cors({
-  origin: 'http://localhost:5173', // Allow requests from this origin
-  methods: ['GET', 'POST'], // Allow specific HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
-}));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
@@ -93,14 +89,17 @@ app.post("/add-message", async (req, res) => {
     const sender_no = x.sender_no;
     const receiver_no = x.receiver_no;
     const t_message = x.translated_content;
-    let response = await addMessage(content, sender_no, receiver_no, t_message)
-    // console.log(response.rowCount);
-    if (response.rowCount == 1) {
-      res.json({ status: 1 });
-      io.emit("new-message", { /* Include relevant data about the new message */ });
-    } else {
-      res.json({ status: 0 });
-    }
+    const response= await addMessage(content, sender_no, receiver_no, t_message)
+    // console.log(response.rows[0].id);
+    let userID = response.rows[0].id
+    let msg = await get_data(sender_no, receiver_no);
+    res.json(msg);
+    io.emit('newMessageR');
+    // if (connectedUsers[userID]) {
+      // console.log(connectedUsers[userID]);
+      // io.to(connectedUsers[userID]).emit('newMessageR');
+      // console.log("eventSent")
+    // }
   } catch (error) {
     console.log(error);
   }
@@ -131,17 +130,15 @@ io.on('connection', (socket) => {
   // console.log('A new user just connected');
 
   socket.on('register', (userID) => {
+    console.log(socket.id);
     connectedUsers[userID] = socket.id;
     // console.log(`${userID} registered`);
   });
 
-  socket.on('user-logout',(userID)=>{
+  socket.on('user-logout', (userID) => {
     // console.log(`${userID} logged out`);
     delete connectedUsers[userID];
   })
 
-  socket.on('disconnect', () =>{
-    console.log('User disconnected from server')
-  })
 });
 server.listen(3000, () => console.log('Node.js server listening on port 3000'));

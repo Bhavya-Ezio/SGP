@@ -15,7 +15,7 @@ const Conversation = (conversation) => {
                 sender_no: currentUser.mob_number,
                 receiver_no: conversation.conversation.associated_no
             }
-            const response = await fetch('http://localhost:3000/get-chat', {
+            const response = await fetch('/get-chat', {
                 method: "POST",
                 body: JSON.stringify(obj),
                 headers: {

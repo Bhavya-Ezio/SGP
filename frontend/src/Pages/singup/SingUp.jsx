@@ -28,7 +28,7 @@ const SingUp = () => {
                 }
                 // console.log(obj);
                 try {
-                    const response = await fetch('http://localhost:3000/add-data', {
+                    const response = await fetch('/add-data', {
                         body: JSON.stringify(obj),
                         method: 'POST',
                         headers: {

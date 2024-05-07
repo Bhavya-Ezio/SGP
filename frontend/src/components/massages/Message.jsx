@@ -1,11 +1,40 @@
 //message.jsx
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import { socket } from "./../../socketIO/socket"
+import { MessagesContext } from "../../hooks/MessageContext";
 
 const SingleMessage = ({ message }) => {
   const storedUserData = localStorage.getItem("currentUser");
   const currentUser = storedUserData ? JSON.parse(storedUserData) : null;
+  const {setSelectedConversation} = useContext(MessagesContext);
+  const { currentConversation } = useContext(MessagesContext);
   const [t, setT] = useState(0);
 
+  socket.on('newMessageR', async () => {
+    console.log("newMessageR");
+    try {
+      let obj = {
+        sender_no: currentUser.mob_number,
+        receiver_no: currentConversation.associated_no
+      }
+      const response = await fetch('/get-chat', {
+        method: "POST",
+        body: JSON.stringify(obj),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch messages');
+      }
+      const data = await response.json();
+      // console.log("data ",data);
+      setSelectedConversation(data)
+    } catch (error) {
+      console.error('Error fetching contact list:', error);
+    }
+  });
   const changeText = async (event) => {
     event.preventDefault();
     setT((t) => !t);

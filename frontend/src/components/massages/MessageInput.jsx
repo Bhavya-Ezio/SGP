@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { MessagesContext } from "../../hooks/MessageContext";
 
-
 const MessageInput = () => {
-    const { currentConversation } = useContext(MessagesContext)
+    const { setSelectedConversation } = useContext(MessagesContext);
+    const { setCurrentConversation, currentConversation } = useContext(MessagesContext);
     const storedUserData = localStorage.getItem('currentUser');
     const currentUser = storedUserData ? JSON.parse(storedUserData) : null;
     const apiKey = "c3ccb5de5246b545ad54";
@@ -35,7 +35,7 @@ const MessageInput = () => {
             }
             // console.log(obj);
             try {
-                const response = await fetch("http://localhost:3000/add-message", {
+                const response = await fetch("/add-message", {
                     method: "POST",
                     body: JSON.stringify(obj),
                     headers: {
@@ -47,6 +47,7 @@ const MessageInput = () => {
                 }
                 const resData = await response.json();
                 // console.log("res data", resData);
+                setSelectedConversation(resData)
             } catch (error) {
                 // console.log(error);
             }

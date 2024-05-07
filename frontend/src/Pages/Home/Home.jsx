@@ -15,7 +15,7 @@ const Home = () => {
 				let obj = {
 					user_no: currentUser.mob_number
 				}
-				const response = await fetch('http://localhost:3000/get-contact-list', {
+				const response = await fetch('/get-contact-list', {
 					method: "POST",
 					body: JSON.stringify(obj),
 					headers: {

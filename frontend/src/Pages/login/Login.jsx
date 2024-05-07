@@ -17,7 +17,7 @@ const Login = () => {
                 password : password
             }
             try {
-                const response=await fetch("http://localhost:3000/check-data",{
+                const response=await fetch("/check-data",{
                     method: "POST",
                     body : JSON.stringify(obj),
                     headers: {

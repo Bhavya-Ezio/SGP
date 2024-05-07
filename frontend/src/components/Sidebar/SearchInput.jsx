@@ -19,7 +19,7 @@ const SearchInput = () => {
                 }
                 // console.log(obj);
                 try {
-                    const response = await fetch("http://localhost:3000/add-contact", {
+                    const response = await fetch("/add-contact", {
                         method: "POST",
                         body: JSON.stringify(obj),
                         headers: {
