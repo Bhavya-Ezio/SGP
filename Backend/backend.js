@@ -93,6 +93,8 @@ app.post("/add-message", async (req, res) => {
     // console.log(response.rows[0].id);
     let userID = response.rows[0].id
     let msg = await get_data(sender_no, receiver_no);
+    // msg.sort((a, b) => b.msg_id - a.msg_id);
+    // console.log(msg);
     res.json(msg);
     io.emit('newMessageR');
     // if (connectedUsers[userID]) {

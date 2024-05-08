@@ -1,0 +1,8 @@
+.cherry {
+    overflow-y: scroll;
+    padding : 0.3rem 
+}
+
+.cherry::-webkit-scrollbar {
+    display: none;
+  }

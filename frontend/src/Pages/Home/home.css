@@ -1,0 +1,8 @@
+.op {
+    overflow-y: scroll;
+    padding: 0.2rem 0.2rem;
+}
+
+.op::-webkit-scrollbar {
+    display: none;
+  }

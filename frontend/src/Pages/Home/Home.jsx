@@ -3,6 +3,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import MessageContainer from "../../components/massages/MessageContainer";
 import React, { useEffect, useState } from 'react';
 import { MessagesProvider } from "../../hooks/MessageContext";
+import './home.css'
 
 const Home = () => {
 	const [contactList, setContactList] = useState([]);
@@ -45,7 +46,7 @@ const Home = () => {
 					<div className="w-4/12"> {/* Sidebar takes 35% of full width */}
 						<Sidebar contactList={contactList} />
 					</div>
-					<div className="flex-1"> {/* MessageContainer takes remaining width */}
+					<div className="flex-1 op"> {/* MessageContainer takes remaining width */}
 						<MessageContainer />
 					</div>
 				</div>

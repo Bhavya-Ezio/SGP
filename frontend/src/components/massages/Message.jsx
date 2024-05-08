@@ -11,7 +11,7 @@ const SingleMessage = ({ message }) => {
   const [t, setT] = useState(0);
 
   socket.on('newMessageR', async () => {
-    console.log("newMessageR");
+    // console.log("newMessageR");
     try {
       let obj = {
         sender_no: currentUser.mob_number,
@@ -60,7 +60,7 @@ const SingleMessage = ({ message }) => {
 };
 
 const Message = ({ messages, setMessage, clicked }) => {
-
+  console.log(messages.sort((a, b) => a.msg_id - b.msg_id));
   return (
     <>
       {messages.map((message, index) => (

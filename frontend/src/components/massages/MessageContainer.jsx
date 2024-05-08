@@ -2,13 +2,14 @@ import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { useContext } from "react";
 import { MessagesContext } from "../../hooks/MessageContext";
+import './msg.css';
 
 const MessageContainer = () => {
   const { messages } = useContext(MessagesContext);
   const { currentConversation } = useContext(MessagesContext);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col cherry">
       {/* Header */}
       <div className="bg-slate-500 px-4 py-2 mb-2">
         <span className="label-text-black">To:</span>
