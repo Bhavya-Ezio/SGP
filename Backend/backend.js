@@ -12,7 +12,6 @@ const { get_data } = require('./getMessage.js');
 const { get_contactList } = require('./getContactList.js');
 const { addMessage } = require('./addMessage.js');
 const { addContact } = require('./addContact.js');
-const { log } = require('console');
 
 const server = http.createServer(app);
 const io = socketIO(server);
