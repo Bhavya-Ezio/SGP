@@ -60,7 +60,7 @@ const SingleMessage = ({ message }) => {
 };
 
 const Message = ({ messages, setMessage, clicked }) => {
-  console.log(messages.sort((a, b) => a.msg_id - b.msg_id));
+  messages.sort((a, b) => a.msg_id - b.msg_id);
   return (
     <>
       {messages.map((message, index) => (

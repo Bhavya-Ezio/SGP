@@ -3,7 +3,7 @@ async function checkData(password, number) {
     const client = await pool.connect();
 
     try {
-        const query = `SELECT username,mob_number,id FROM login_info WHERE mob_number=$1 AND password=$2;`;
+        const query = `SELECT username,mob_number,id,language FROM login_info WHERE mob_number=$1 AND password=$2;`;
         const values = [number, password];
         const result = await client.query(query, values);
         if (result.rowCount === 1) {

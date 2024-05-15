@@ -7,25 +7,32 @@ const MessageInput = () => {
     const storedUserData = localStorage.getItem('currentUser');
     const currentUser = storedUserData ? JSON.parse(storedUserData) : null;
     const apiKey = "c3ccb5de5246b545ad54";
+
     async function getTranslation(text, sourceLang, targetLang) {
         const url = `https://mymemory.translated.net/api/get?q=${text}&langpair=${sourceLang}|${targetLang}&mt=1&from=react-app&lang=${sourceLang}&uid=${apiKey}`;
-        const t_msg = await fetch(url);
-        return t_msg;
+        let t_msg = await fetch(url);
+        t_msg = await t_msg.json();
+        let x=t_msg.responseData.translatedText;
+        // console.log("t_msg", x);
+        return x;
     }
     const clicked = async (event) => {
         // console.log(currentConversation);
         event.preventDefault();
         let contents = document.getElementById("content").value
+        // console.log("cConvo", currentConversation, "cUser", currentUser);
         if (contents === '') {
             alert("The message is empty.")
         }
         else {
             let translated_content;
             if (currentUser.language === currentConversation.language) {
+                // console.log("same");
                 translated_content = contents;
             }
             else {
-                translated_content = await getTranslation(contents, currentUser.language, currentConversation.language);
+                // console.log("diff");
+                translated_content = await getTranslation(contents, currentConversation.language, currentUser.language);
             }
             let obj = {
                 sender_no: currentUser.mob_number,
